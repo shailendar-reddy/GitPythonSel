@@ -17,5 +17,7 @@ class HomePageData:
                     val = sheet.cell(row=i, column=j).value
                     Dict[sheet.cell(row=1, column=j).value] = sheet.cell(row=i, column=j).value
 
+        print(Dict)
+
         return[Dict]
 
