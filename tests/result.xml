@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="32.714" timestamp="2021-09-18T17:46:53.946208" hostname="shailendarreddy"><testcase classname="test_HomePage.TestHomePage" name="test_formSubmission[getData0]" time="10.672" /><testcase classname="test_HomePage.TestHomePage" name="test_formSubmission[getData1]" time="4.533" /><testcase classname="test_e2e.TestOne" name="test_e2e" time="16.925"><failure message="AssertionError: assert 'Successful!' in '×\nSuccess! Thank you! Your order will be delivered in next few weeks :-).'">self = &lt;tests.test_e2e.TestOne object at 0x0000006A50563C40&gt;
+
+    def test_e2e(self):
+        log = self.getLogger()
+        prodSelected = []
+        cartItems = []
+        self.driver.implicitly_wait(5)
+        homepage = HomePage(self.driver, log)  #this object is used to send the driver object to the actual page object file
+        checkoutpage = homepage.homeshop()
+        log.info("All phone cards")
+        products = checkoutpage.ShopItems()
+        for product in products:
+            productName = product.find_element_by_xpath("div/h4/a").text
+            log.info(productName)
+            if productName == "Nokia Edge":
+                time.sleep(3)
+                prodSelected.append(productName)
+                product.find_element_by_xpath("div[2]/button").click()
+    
+        checkoutpage.checkoutbutton().click()
+    
+        cartItems.append(self.driver.find_element_by_css_selector("h4[class='media-heading'] a").text)
+        assert prodSelected == cartItems
+    
+        confirmpage = checkoutpage.checkoutbutton2()
+        confirmpage.Coun().send_keys("un")
+        # self.driver.find_element_by_id("country").send_keys("un")
+        self.verifyLinkPresence("United States of America")
+        confirmpage.selcoun().click()
+        # self.driver.find_element_by_link_text("United States of America").click()
+    
+        self.driver.find_element_by_css_selector(".btn-success").click()
+    
+        message = self.driver.find_element_by_xpath("//div[@class='alert alert-success alert-dismissible']").text
+&gt;       assert "Successful!" in message
+E       AssertionError: assert 'Successful!' in '×\nSuccess! Thank you! Your order will be delivered in next few weeks :-).'
+
+test_e2e.py:49: AssertionError</failure></testcase></testsuite></testsuites>
