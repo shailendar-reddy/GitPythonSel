@@ -19,5 +19,6 @@ class HomePageData:
 
         print(Dict)
         print("You Indian Guy fuck off")
+        print("Fuck you American Gay Architect")
         return[Dict]
 
